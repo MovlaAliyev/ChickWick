@@ -1727,13 +1727,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe9d0ceca8bf7a48954b9214ee5ad35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 20
+  _speed: 30
   _jumpForce: 3
+  _slideDrag: 2
+  _groundDrag: 5
+  _slidingSpeed: 2
   _playerHeight: 1
+  _slidingKey: 113
+  _movementKey: 101
   _groundMask:
     serializedVersion: 2
     m_Bits: 8
-  _playerRigidbody: {fileID: 0}
+  _playerRigidbody: {fileID: 1910616488}
   _orientationTransfrom: {fileID: 1877958869}
 --- !u!1 &51514539808347521
 GameObject:
