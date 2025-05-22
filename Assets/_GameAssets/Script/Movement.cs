@@ -46,7 +46,7 @@ public class Movement : MonoBehaviour
 
     private void PlayerDrag()
     {
-        _playerRigidbody.drag = _isSliding ? _slideDrag : _groundDrag;
+        _playerRigidbody.linearDamping = _isSliding ? _slideDrag : _groundDrag;
     }
 
     private void SetInputs()
@@ -72,11 +72,11 @@ public class Movement : MonoBehaviour
 
     private void LimitPlayerSeed()
     {
-        Vector3 flatVelocity = new Vector3(_playerRigidbody.velocity.x, 0, _playerRigidbody.velocity.z);
+        Vector3 flatVelocity = new Vector3(_playerRigidbody.linearVelocity.x, 0, _playerRigidbody.linearVelocity.z);
         if (flatVelocity.magnitude > _speed)
         {
             Vector3 limitedVelocity = flatVelocity.normalized * _speed;
-            _playerRigidbody.velocity = new Vector3(limitedVelocity.x, _playerRigidbody.velocity.y, limitedVelocity.z);
+            _playerRigidbody.linearVelocity = new Vector3(limitedVelocity.x, _playerRigidbody.linearVelocity.y, limitedVelocity.z);
         }  
         
     }
@@ -96,7 +96,7 @@ public class Movement : MonoBehaviour
 
     private void Jump()
     {
-        _playerRigidbody.velocity = new Vector3(_playerRigidbody.velocity.x, 0, _playerRigidbody.velocity.z);
+        _playerRigidbody.linearVelocity = new Vector3(_playerRigidbody.linearVelocity.x, 0, _playerRigidbody.linearVelocity.z);
         _playerRigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse); 
     }
     
