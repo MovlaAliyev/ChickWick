@@ -5,22 +5,10 @@ public class PlayerIntegractionController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("here");
-
-        if (other.CompareTag("GoldWheat"))
+        if (other.TryGetComponent(out ICollectible collectible))
         {
-            other.gameObject?.GetComponent<GoldWheatCollectible>().Collect();
+            collectible.Collect();
+            
         }
-
-        if (other.CompareTag("HolyWheat"))
-        {
-           other.gameObject?.GetComponent<HolyWheatCollectible>().Collect();
-        }
-        
-        if (other.CompareTag("RottenWheat"))
-        {
-            other.gameObject?.GetComponent<RottenWheatCollectible>().Collect();
-        }
-        
     }
 }

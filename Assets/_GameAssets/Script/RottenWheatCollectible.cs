@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RottenWheatCollectible : MonoBehaviour
+public class RottenWheatCollectible : MonoBehaviour, ICollectible
 {
     [SerializeField] float _decreaseSpeed;
     [SerializeField] float _boostDuration;
