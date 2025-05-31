@@ -1,10 +1,13 @@
+using System;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private Vector3 _moveDirection;
 
+    public event Action OnPlayerJumped;
     private bool _isSliding;
+    private Vector3 _moveDirection;
+    private StateController _playerState;
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _slideDrag;
@@ -21,6 +24,7 @@ public class Movement : MonoBehaviour
 
     void Awake()
     {
+        _playerState = GetComponent<StateController>();
         _playerRigidbody = GetComponent<Rigidbody>();
         _playerRigidbody.freezeRotation = true;
     }
@@ -35,6 +39,7 @@ public class Movement : MonoBehaviour
     void Update()
     {
         SetInputs();
+        SetStates();
         PlayerDrag();
         LimitPlayerSeed();
     }
@@ -61,12 +66,10 @@ public class Movement : MonoBehaviour
         else if (Input.GetKeyDown(_slidingKey))
         {
             _isSliding = true;
-            Debug.Log("Sliding");
         }
         else if (Input.GetKeyDown(_movementKey))
         {
             _isSliding = false;
-            Debug.Log("NotSliding");
         }
     }
 
@@ -77,8 +80,8 @@ public class Movement : MonoBehaviour
         {
             Vector3 limitedVelocity = flatVelocity.normalized * _speed;
             _playerRigidbody.linearVelocity = new Vector3(limitedVelocity.x, _playerRigidbody.linearVelocity.y, limitedVelocity.z);
-        }  
-        
+        }
+
     }
 
     private void Move()
@@ -96,19 +99,44 @@ public class Movement : MonoBehaviour
 
     private void Jump()
     {
+        OnPlayerJumped?.Invoke();
         _playerRigidbody.linearVelocity = new Vector3(_playerRigidbody.linearVelocity.x, 0, _playerRigidbody.linearVelocity.z);
-        _playerRigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse); 
+        _playerRigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
     }
-    
+
     private bool IsGrounded()
     {
         Vector3 rayOrigin = transform.position;
         Vector3 rayDirection = Vector3.down;
-        float rayLength = _playerHeight * 0.4f + 0.1f;
+        float rayLength = _playerHeight * 0.5f + 0.2f;
 
         bool grounded = Physics.Raycast(rayOrigin, rayDirection, rayLength, _groundMask);
         Debug.DrawRay(rayOrigin, rayDirection * rayLength, grounded ? Color.green : Color.red);
 
         return grounded;
+    }
+
+    private void SetStates()
+    {
+        var movementDirection = _moveDirection.normalized;
+        var isGrounded = IsGrounded();
+        var currentState = _playerState.GetPlayerState();
+
+        var newState = currentState switch
+        {
+            _ when movementDirection == Vector3.zero && isGrounded && !_isSliding => PlayerState.IDLE,
+            _ when movementDirection != Vector3.zero && isGrounded && !_isSliding => PlayerState.MOVE,
+            _ when movementDirection != Vector3.zero && isGrounded && _isSliding => PlayerState.SLIDE,
+            _ when movementDirection == Vector3.zero && isGrounded && _isSliding => PlayerState.SLIDEIDLE,
+            _ when !isGrounded => PlayerState.JUMP,
+            _ => currentState
+        };
+
+        if (newState != currentState)
+        {
+            _playerState.ChangePlayerState(newState);
+        }
+
+        Debug.Log($"Current State: {newState}");
     }
 }
