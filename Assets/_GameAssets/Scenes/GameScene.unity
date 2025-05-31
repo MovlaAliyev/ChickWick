@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 23877177}
   - component: {fileID: 23877178}
+  - component: {fileID: 23877179}
   m_Layer: 0
   m_Name: GoldWheat
   m_TagString: GoldWheat
@@ -173,6 +174,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.7765906, y: 1.0240524, z: 0.21808784}
   m_Center: {x: 0.031506374, y: -0.17701232, z: 0}
+--- !u!114 &23877179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23877176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97f2e51fbf31b724e98946c0decbaa46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _increaseSpeed: 15
+  _boostDuration: 5
+  _movement: {fileID: 1910616491}
 --- !u!1 &68000412
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 68000414}
   - component: {fileID: 68000413}
+  - component: {fileID: 68000415}
   m_Layer: 0
   m_Name: RottenWheat
   m_TagString: RottenWheat
@@ -227,6 +244,21 @@ Transform:
   - {fileID: 2047193830}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &68000415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68000412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94c99100bbd86bc4fa56b035830348e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _decreaseSpeed: -5
+  _boostDuration: 5
+  _movement: {fileID: 1910616491}
 --- !u!1 &69277192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,6 +1768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1428585050}
   - component: {fileID: 1428585049}
+  - component: {fileID: 1428585051}
   m_Layer: 0
   m_Name: HolyWheat
   m_TagString: HolyWheat
@@ -1780,6 +1813,21 @@ Transform:
   - {fileID: 462430012}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1428585051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428585048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518fc4dca4619f348a216999b66e9c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _forcceJump: 8
+  _boostDuration: 5
+  _movement: {fileID: 1910616491}
 --- !u!1 &1759853174
 GameObject:
   m_ObjectHideFlags: 0
@@ -2217,7 +2265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe9d0ceca8bf7a48954b9214ee5ad35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 30
+  _speed: 40
   _jumpForce: 8
   _slideDrag: 2
   _groundDrag: 5

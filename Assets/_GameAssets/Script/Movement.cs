@@ -14,6 +14,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private float _groundDrag;
     [SerializeField] private float _slidingSpeed;
     [SerializeField] private float _playerHeight;
+
+    private float _startMovementSpeed, _startJumpForce;
     private float _verticalInput, _horizontalInput;
 
     [SerializeField] private KeyCode _slidingKey;
@@ -27,6 +29,9 @@ public class Movement : MonoBehaviour
         _playerState = GetComponent<StateController>();
         _playerRigidbody = GetComponent<Rigidbody>();
         _playerRigidbody.freezeRotation = true;
+
+        _startJumpForce = _jumpForce;
+        _startMovementSpeed = _speed;
     }
 
     // Start is called before the first frame update
@@ -136,5 +141,27 @@ public class Movement : MonoBehaviour
         {
             _playerState.ChangePlayerState(newState);
         }
+    }
+
+    public void SetMovementSpeed(float newSpeed, float duration)
+    {
+        _speed += newSpeed;
+        Invoke(nameof(ResetMovementSpeed), duration);
+    }
+
+    public void ResetMovementSpeed()
+    {
+        _speed = _startMovementSpeed;
+    }
+
+    public void SetJumpForce(float newJumpForce, float duration)
+    {
+        _jumpForce += newJumpForce;
+        Invoke(nameof(ResetJumpForce), duration);
+    }
+
+    public void ResetJumpForce()
+    {
+        _jumpForce = _startJumpForce;
     }
 }

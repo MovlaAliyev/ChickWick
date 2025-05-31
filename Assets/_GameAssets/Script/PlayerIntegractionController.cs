@@ -6,20 +6,20 @@ public class PlayerIntegractionController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("here");
-        
+
         if (other.CompareTag("GoldWheat"))
         {
-            Debug.Log("Gold entered the trigger");
+            other.gameObject?.GetComponent<GoldWheatCollectible>().Collect();
         }
 
         if (other.CompareTag("HolyWheat"))
         {
-            Debug.Log("Holy entered the trigger");
+           other.gameObject?.GetComponent<HolyWheatCollectible>().Collect();
         }
         
         if (other.CompareTag("RottenWheat"))
         {
-            Debug.Log("Rotten entered the trigger");
+            other.gameObject?.GetComponent<RottenWheatCollectible>().Collect();
         }
         
     }
