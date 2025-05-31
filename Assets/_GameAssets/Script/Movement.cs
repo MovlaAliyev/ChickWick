@@ -136,7 +136,5 @@ public class Movement : MonoBehaviour
         {
             _playerState.ChangePlayerState(newState);
         }
-
-        Debug.Log($"Current State: {newState}");
     }
 }
