@@ -145,6 +145,8 @@ public class Movement : MonoBehaviour
 
     public void SetMovementSpeed(float newSpeed, float duration)
     {
+        Debug.Log($"speed: {_speed}");
+        Debug.Log($"newSpeed: {newSpeed}");
         _speed += newSpeed;
         Invoke(nameof(ResetMovementSpeed), duration);
     }
@@ -163,5 +165,10 @@ public class Movement : MonoBehaviour
     public void ResetJumpForce()
     {
         _jumpForce = _startJumpForce;
+    }
+
+    public Rigidbody GetPlayerRigidbody()
+    {
+        return _playerRigidbody;
     }
 }
